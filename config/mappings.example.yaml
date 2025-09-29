@@ -1,0 +1,75 @@
+# Minimal, explicit mapping schema.
+# Each entry maps a ROS topic+field to a taxonomy path, with optional unit/scale/offset or enum mapping.
+
+mappings:
+  - topic: /road/speed_limit
+    type: std_msgs/msg/Int32
+    field: data
+    taxonomy: road.speed_limit
+
+  - topic: /road/type
+    type: std_msgs/msg/String
+    field: data
+    taxonomy: road.type
+    enum_map:
+      motorway: motorway
+      trunk: trunk
+      primary: primary
+      secondary: secondary
+      residential: residential
+
+  - topic: /env/visibility
+    type: std_msgs/msg/Float32
+    field: data
+    taxonomy: env.visibility
+    unit_id: m
+
+  - topic: /env/fog_severity
+    type: std_msgs/msg/String
+    field: data
+    taxonomy: env.weather.fog.severity
+    enum_map:
+      none: none
+      light: light
+      dense: dense
+
+  - topic: /env/precip_type
+    type: std_msgs/msg/String
+    field: data
+    taxonomy: env.weather.precipitation.type
+    enum_map:
+      none: none
+      drizzle: drizzle
+      rain: rain
+      snow: snow
+      hail: hail
+
+  - topic: /env/precip_rate
+    type: std_msgs/msg/Float32
+    field: data
+    taxonomy: env.weather.precipitation.rate
+    unit_id: "mm/h"
+
+  - topic: /env/wind_speed
+    type: std_msgs/msg/Float32
+    field: data
+    taxonomy: env.weather.wind.speed
+    unit_id: "m/s"
+
+  - topic: /comms/downlink
+    type: std_msgs/msg/Float32
+    field: data
+    taxonomy: comms.downlink_throughput
+    unit_id: "Mbps"
+
+  - topic: /comms/uplink_latency
+    type: std_msgs/msg/Float32
+    field: data
+    taxonomy: comms.uplink_latency
+    unit_id: "ms"
+
+  - topic: /scene/ego_z
+    type: std_msgs/msg/Float32
+    field: data
+    taxonomy: scene.ego_pose.position.z
+    unit_id: "m"

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>asam_open_odd_ros</name>
+  <version>0.1.0</version>
+  <description>ROS 2 node - field-to-concept mapper and evaluator in one</description>
+
+  <maintainer email="marko.mizdrak@dlr.de">Marko Mizdrak</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>pyyaml</exec_depend>
+  <exec_depend>asam_open_odd_msgs</exec_depend>
+  <exec_depend>asam_open_odd_core</exec_depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>
