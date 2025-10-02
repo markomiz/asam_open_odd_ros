@@ -1,0 +1,174 @@
+# mappings.yaml — works with your provided taxonomy
+
+mappings:
+  # --- ROAD ---
+  - topic: /road/type
+    type: std_msgs/msg/String
+    field: data
+    taxonomy: road.type
+    enum_map:
+      motorway: motorway
+      trunk: trunk
+      primary: primary
+      secondary: secondary
+      residential: residential
+
+  - topic: /road/speed_limit
+    type: std_msgs/msg/Int32
+    field: data
+    taxonomy: road.speed_limit
+    unit_id: "km/h"     # taxonomy: int speed — pick a unit; evaluator doesn’t convert yet
+
+  # --- ENVIRONMENT ---
+  - topic: /env/visibility_m
+    type: std_msgs/msg/Float32
+    field: data
+    taxonomy: env.visibility
+    unit_id: "m"        # taxonomy: float distance
+
+  - topic: /env/time_of_day
+    type: std_msgs/msg/String
+    field: data
+    taxonomy: env.illumination.time_of_day
+
+  - topic: /env/ambient_light
+    type: std_msgs/msg/Float32
+    field: data
+    taxonomy: env.illumination.ambient_light
+    unit_id: "cd/m^2"   # taxonomy: float luminance
+
+  # Wind
+  - topic: /env/wind_speed_kmh
+    type: std_msgs/msg/Float32
+    field: data
+    taxonomy: env.weather.wind.speed
+    unit_id: "m/s"      # taxonomy: float velocity — convert km/h -> m/s
+    scale: 0.2777777778
+    offset: 0.0
+
+  - topic: /env/wind_direction_deg
+    type: std_msgs/msg/Float32
+    field: data
+    taxonomy: env.weather.wind.direction
+    unit_id: "deg"      # taxonomy: float angle
+
+  # Precipitation
+  - topic: /env/precip/type
+    type: std_msgs/msg/String
+    field: data
+    taxonomy: env.weather.precipitation.type
+    enum_map:
+      none: none
+      drizzle: drizzle
+      rain: rain
+      snow: snow
+      hail: hail
+
+  - topic: /env/precip/rate
+    type: std_msgs/msg/Float32
+    field: data
+    taxonomy: env.weather.precipitation.rate
+    unit_id: "mm/h"     # taxonomy: float precipitation_rate
+
+  # Fog severity (categorical)
+  - topic: /env/fog_severity
+    type: std_msgs/msg/String
+    field: data
+    taxonomy: env.weather.fog.severity
+    enum_map:
+      none: none
+      light: light
+      dense: dense
+
+  # --- COMMS ---
+  - topic: /comms/downlink_mbps
+    type: std_msgs/msg/Float32
+    field: data
+    taxonomy: comms.downlink_throughput
+    unit_id: "Mbps"     # taxonomy: float bandwidth
+
+  - topic: /comms/uplink_latency_ms
+    type: std_msgs/msg/Float32
+    field: data
+    taxonomy: comms.uplink_latency
+    unit_id: "ms"       # taxonomy: float time
+
+  - topic: /comms/provider
+    type: std_msgs/msg/String
+    field: data
+    taxonomy: comms.provider
+
+  # --- VEHICLE POSE (geometry_msgs/Pose) ---
+  - topic: /vehicle/pose
+    type: geometry_msgs/msg/Pose
+    field: position.x
+    taxonomy: vehicle.pose.position.x
+    unit_id: "m"
+
+  - topic: /vehicle/pose
+    type: geometry_msgs/msg/Pose
+    field: position.y
+    taxonomy: vehicle.pose.position.y
+    unit_id: "m"
+
+  - topic: /vehicle/pose
+    type: geometry_msgs/msg/Pose
+    field: position.z
+    taxonomy: vehicle.pose.position.z
+    unit_id: "m"
+
+  # Orientation as yaw/pitch/roll (assuming /vehicle/rpy publishes degrees)
+  - topic: /vehicle/rpy_deg
+    type: geometry_msgs/msg/Vector3
+    field: x
+    taxonomy: vehicle.pose.orientation.roll
+    unit_id: "deg"
+
+  - topic: /vehicle/rpy_deg
+    type: geometry_msgs/msg/Vector3
+    field: y
+    taxonomy: vehicle.pose.orientation.pitch
+    unit_id: "deg"
+
+  - topic: /vehicle/rpy_deg
+    type: geometry_msgs/msg/Vector3
+    field: z
+    taxonomy: vehicle.pose.orientation.yaw
+    unit_id: "deg"
+
+  # Valid flag
+  - topic: /vehicle/pose_valid
+    type: std_msgs/msg/Bool
+    field: data
+    taxonomy: vehicle.pose.valid
+    # example enum coercion to string literals if you modeled valid as categorical elsewhere:
+    # enum_map:
+    #   "True": "true"
+    #   "False": "false"
+
+  # --- VEHICLE KINEMATICS ---
+  - topic: /vehicle/speed_mps
+    type: std_msgs/msg/Float32
+    field: data
+    taxonomy: vehicle.kinematics.speed
+    unit_id: "m/s"      # taxonomy: float velocity
+
+  - topic: /vehicle/accel_mps2
+    type: std_msgs/msg/Float32
+    field: data
+    taxonomy: vehicle.kinematics.acceleration
+    unit_id: "m/s^2"    # taxonomy: float acceleration
+
+  # --- SCENE (observer & ego pose) ---
+  # If you have an observer pose topic; reusing /vehicle/pose here for demo.
+  - topic: /observer/pose
+    type: geometry_msgs/msg/Pose
+    field: position.z
+    taxonomy: scene.observer_pose.position.z
+    unit_id: "m"
+
+  - topic: /scene/ego_pose
+    type: geometry_msgs/msg/Pose
+    field: position.z
+    taxonomy: scene.ego_pose.position.z
+    unit_id: "m"

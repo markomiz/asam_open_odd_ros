@@ -115,6 +115,7 @@ class OddMonitorNode(Node):
         rep_msg = report_to_msg(report, frame_id="map",
                                 now=self.get_clock().now())
         self._pub_report.publish(rep_msg)
+        print(report)
 
 
 def main(args=None):
