@@ -8,7 +8,7 @@ from rclpy.qos import QoSProfile, ReliabilityPolicy, HistoryPolicy
 
 from asam_open_odd_core.openodd_yaml_parser import load_openodd_yaml
 from asam_open_odd_core.openodd_types import TaxonomyValue as CoreTaxVal
-from asam_open_odd_core.openodd_evaluator import evaluate_odd
+from asam_open_odd_core.openodd_evaluator import evaluate_odd, report_string
 from asam_open_odd_core.openodd_evaluator import DictValueResolver
 
 from asam_open_odd_msgs.msg import Cod as CodMsg, OddReport as OddReportMsg
@@ -115,7 +115,7 @@ class OddMonitorNode(Node):
         rep_msg = report_to_msg(report, frame_id="map",
                                 now=self.get_clock().now())
         self._pub_report.publish(rep_msg)
-        print(report)
+        print(report_string(report))
 
 
 def main(args=None):
